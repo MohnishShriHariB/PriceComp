@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+.grid-container1 {
+  display: grid;
+  grid-template-columns: auto;
+  padding: 10px;
+}
+
+.grid-item {
+  border: 1px solid white;
+  border-radius: 0px;
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: 3px solid black;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+</head>
+{% load static %}
+<body background="{% static 'pricecmp/wepik-export-20231010152940MRQZ.jpeg' %}">
+<form action="{% url 'home' %}" method="POST">
+  {% csrf_token %}
+    <button class="button" type='Submit'>BACK</button>
+</form>
+<div class="grid-container">
+
+  <div class="grid-item">
+    <h2>{{pro.title}}</h2>
+    <img src="{{pro.image.url}}" width="200" height="192" align="center">
+  </div>
+  <div class="grid-item">
+    <div class="grid-container">
+      <div class="grid-item">
+        <h2>Amazon</h2>
+        <h3>Price-Rs.{{pro.amazon_price}}</h3>
+        {% if ae %}
+        <h3>{{ae}}</h3>
+        {% endif %}
+        <form action="{{pro.amazon_url}}" method="POST">
+            <button class="button" type='Submit'>Amazon Link</button>
+        </form>
+      </div>
+      <br>
+      <div class="grid-item">
+        <h2>Flipkart</h2>
+        <h3>Price-Rs.{{pro.flipkart_price}}</h3>
+        {% if fe %}
+        <h3>{{fe}}</h3>
+        {% endif %}
+        <form action="{{pro.flipkart_url}}" method="POST">
+            <button class="button" type='Submit'>Flipkart Link</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
